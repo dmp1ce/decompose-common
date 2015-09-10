@@ -1,3 +1,5 @@
+DECOMPOSE_COMMON_PROCESSES=( 'project-root' )
+
 # Print the project root
 _decompose-process-project-root() {
   echo $(_decompose-project-root)
