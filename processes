@@ -1,0 +1,9 @@
+# Print the project root
+_decompose-process-project-root() {
+  echo $(_decompose-project-root)
+}
+_decompose-process-project-root_help() {
+  echo "  Print project root directory"
+}
+
+# vim:syntax=sh
