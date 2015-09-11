@@ -1,4 +1,4 @@
-DECOMPOSE_COMMON_PROCESSES=( 'project-root' )
+DECOMPOSE_COMMON_PROCESSES=( 'project-root' 'diff-skeleton' )
 
 # Print the project root
 _decompose-process-project-root() {
@@ -6,6 +6,21 @@ _decompose-process-project-root() {
 }
 _decompose-process-project-root_help() {
   echo "  Print project root directory"
+}
+
+# Show differences between environment and skeleton
+_decompose-process-diff-skeleton() {
+  # Is color diff available?
+  local diffcommand="$(which colordiff 2> /dev/null)"
+  if [ ! -n "$diffcommand" ]; then
+    local diffcommand="$(which diff)"
+  fi
+
+  local project_root=$(_decompose-project-root)
+	$diffcommand -r "$project_root" "$project_root"/.decompose/environment/skel
+}
+_decompose-process-diff-skeleton_help() {
+  echo "  Show differences between environment and skeleton"
 }
 
 # vim:syntax=sh
