@@ -10,6 +10,7 @@ _decompose-process-project-root_help() {
 
 # Show differences between environment and skeleton
 _decompose-process-diff-skeleton() {
+  # TODO: Somehow ignore generated files before diffing. Maybe clean first?
   # Is color diff available?
   local diffcommand="$(which colordiff 2> /dev/null)"
   if [ ! -n "$diffcommand" ]; then
