@@ -10,6 +10,11 @@ _decompose-process-project-root_help() {
 
 # Show differences between environment and skeleton
 _decompose-process-diff-skeleton() {
+  local project_root=$(_decompose-project-root)
+  if [[ -d "$project_root/$1" || -f "$project_root/$1" ]]; then
+    specified_path=$1
+  fi
+
   # TODO: Somehow ignore generated files before diffing. Maybe clean first?
   # Is color diff available?
   local diffcommand="$(which colordiff 2> /dev/null)"
@@ -17,11 +22,11 @@ _decompose-process-diff-skeleton() {
     local diffcommand="$(which diff)"
   fi
 
-  local project_root=$(_decompose-project-root)
-	$diffcommand -r "$project_root" "$project_root"/.decompose/environment/skel
+	$diffcommand -r "$project_root/$specified_path" "$project_root"/.decompose/environment/skel/$specified_path
 }
 _decompose-process-diff-skeleton_help() {
   echo "  Show differences between environment and skeleton"
+  echo "    Param 1: relative directory to project root to diff"
 }
 
 # vim:syntax=sh
