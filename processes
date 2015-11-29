@@ -1,4 +1,20 @@
-DECOMPOSE_COMMON_PROCESSES=( 'project-root' 'diff-skeleton' )
+DECOMPOSE_COMMON_PROCESSES=( 'project-root' 'diff-skeleton' 'print-vars' )
+
+_decompose-process-print-vars() {
+  if [ "$1" ]; then
+    (set -o posix; set) | grep "DECOMPOSE_" | grep "${@:1}"
+    (set -o posix; set) | grep "PROJECT_" | grep "${@:1}"
+  else
+    echo "Core decompose variables:"
+    (set -o posix; set) | grep "DECOMPOSE_"
+
+    echo -e "\nEnvironment specific variables:"
+    (set -o posix; set) | grep "PROJECT_"
+  fi
+}
+_decompose-process-project-root_help() {
+  echo "  Print project variables"
+}
 
 # Print the project root
 _decompose-process-project-root() {
@@ -6,6 +22,7 @@ _decompose-process-project-root() {
 }
 _decompose-process-project-root_help() {
   echo "  Print project root directory"
+  echo "    Param 1: String filter"
 }
 
 # Show differences between environment and skeleton
