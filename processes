@@ -46,4 +46,10 @@ _decompose-process-diff-skeleton_help() {
   echo "    Param 1: relative directory to project root to diff"
 }
 
+# Common build steps
+_decompose-process-common-build() {
+  echo "Building decompose templates..."
+  decompose-process-templates
+}
+
 # vim:syntax=sh
