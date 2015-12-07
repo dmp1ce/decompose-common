@@ -22,7 +22,6 @@ _decompose-process-project-root() {
 }
 _decompose-process-project-root_help() {
   echo "  Print project root directory"
-  echo "    Param 1: String filter"
 }
 
 # Show differences between environment and skeleton
