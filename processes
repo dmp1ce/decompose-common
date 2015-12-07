@@ -12,7 +12,7 @@ _decompose-process-print-vars() {
     (set -o posix; set) | grep "PROJECT_"
   fi
 }
-_decompose-process-project-root_help() {
+_decompose-process-print-vars_help() {
   echo "  Print project variables"
 }
 
