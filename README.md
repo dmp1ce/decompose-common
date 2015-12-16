@@ -13,13 +13,13 @@ Include this library and source `elements` and `processes` files your main decom
 ### Example
 
 First add lib as a submodule to your environment:
-```
+``` bash
 $ cd .decompose/environment
 $ git submodule add https://github.com/dmp1ce/decompose-common.git lib/common
 ```
 
 Then make your `processes` and `elements` file look like this:
-```
+``` bash
 $ cat elments
 # Include common elements
 source $(_decompose-project-root)/.decompose/environment/lib/common/elements
