@@ -1,0 +1,4 @@
+# Where to write current version information to
+PROJECT_VERSION_FILE="version.txt"
+
+# vim:syntax=sh
