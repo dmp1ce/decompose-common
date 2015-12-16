@@ -4,6 +4,7 @@ Some common code usable for nearly all decompose environments
 ## Requirements
 
 - [decompose](https://github.com/dmp1ce/decompose)
+- [colordiff](http://www.colordiff.org/) (Optional)
 
 ## How to use
 
