@@ -8,7 +8,7 @@ Some common code usable for nearly all decompose environments
 
 ## How to use
 
-Include this library and source `elements` and `processes` files your main decompose environment `elments` and `processes` file.
+Include this library and source `elements` and `processes` files your main decompose environment.
 
 ### Example
 
