@@ -26,6 +26,7 @@ source $(_decompose-project-root)/.decompose/environment/lib/common/elements
 $ cat processes
 # Include common processes
 source $(_decompose-project-root)/.decompose/environment/lib/common/processes
+DECOMPOSE_PROCESSES=( "${DECOMPOSE_COMMON_PROCESSES[@]}" )
 ```
 
 ## Elements provided
