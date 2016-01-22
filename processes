@@ -2,8 +2,8 @@ DECOMPOSE_COMMON_PROCESSES=( 'project-root' 'diff-skeleton' 'print-vars' )
 
 _decompose-process-print-vars() {
   if [ "$1" ]; then
-    (set -o posix; set) | grep "DECOMPOSE_" | grep "${@:1}"
-    (set -o posix; set) | grep "PROJECT_" | grep "${@:1}"
+    (set -o posix; set) | grep "DECOMPOSE_" | grep --color "${@:1}"
+    (set -o posix; set) | grep "PROJECT_" | grep --color "${@:1}"
   else
     echo "Core decompose variables:"
     (set -o posix; set) | grep "DECOMPOSE_"
