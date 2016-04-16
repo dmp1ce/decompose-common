@@ -1,4 +1,5 @@
-DECOMPOSE_COMMON_PROCESSES=( 'project-root' 'diff-skeleton' 'print-vars' )
+DECOMPOSE_COMMON_PROCESSES=( 'project-root' 'diff-skeleton' 'print-vars'
+  'skel-get' )
 
 _decompose-process-print-vars() {
   if [ "$1" ]; then
@@ -45,6 +46,25 @@ _decompose-process-diff-skeleton_help() {
   echo "    Param 1: relative directory to project root to diff"
 }
 
+_decompose-process-skel-get() {
+  local project_root=$(_decompose-project-root)
+
+  local tmpdir="$project_root/${1}"
+
+  if [ -d "$project_root/.decompose/environment/skel/$1" ]; then
+    local destination=${tmpdir%/*}
+  else
+    local destination="$tmpdir"
+  fi
+
+  echo "$destination"
+  cp -rL "$project_root/.decompose/environment/skel/$1" "$destination"
+}
+_decompose-process-skel-get_help() {
+  echo "  Copy skeleton files to project."
+  echo "  PARAM 1: Optional parameter which specifies the path to copy skeleton files from."
+}
+
 # Common build steps
 _decompose-process-common-build() {
   echo "Building decompose templates..."
@@ -61,4 +81,4 @@ _decompose-process-build_version_file() {
     "$project_root"/"$PROJECT_VERSION_FILE"
 }
 
-# vim:syntax=sh
+# vim:syntax=sh tabstop=2 shiftwidth=2 expandtab
