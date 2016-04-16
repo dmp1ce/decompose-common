@@ -1,2 +1,0 @@
-source $(_decompose-project-root)/.decompose/environment/lib/common/processes
-DECOMPOSE_PROCESSES=( "${DECOMPOSE_COMMON_PROCESSES[@]}" )
