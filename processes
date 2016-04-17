@@ -1,5 +1,5 @@
 DECOMPOSE_COMMON_PROCESSES=( 'project-root' 'diff-skeleton' 'print-vars'
-  'skel-get' )
+  'skel-get' 'skel-put' )
 
 _decompose-process-print-vars() {
   if [ "$1" ]; then
@@ -63,6 +63,25 @@ _decompose-process-skel-get() {
 _decompose-process-skel-get_help() {
   echo "  Copy skeleton files to project."
   echo "  PARAM 1: Optional parameter which specifies the path to copy skeleton files from."
+}
+
+_decompose-process-skel-put() {
+  local project_root=$(_decompose-project-root)
+
+  local tmpdir="$project_root/.decompose/environment/skel/${1}"
+
+  if [ -d "$project_root/$1" ]; then
+    local destination=${tmpdir%/*}
+  else
+    local destination="$tmpdir"
+  fi
+
+  echo "$destination"
+  cp -rL "$project_root/$1" "$destination"
+}
+_decompose-process-skel-get_help() {
+  echo "  Copy project files to skeleton."
+  echo "  PARAM 1: Specifies the path to copy project files to skeleton."
 }
 
 # Common build steps

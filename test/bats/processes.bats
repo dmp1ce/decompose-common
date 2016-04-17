@@ -54,6 +54,49 @@ load "$BATS_TEST_DIRNAME/bats_functions.bash"
   [ "$test_file_contents" == "Skeleton files" ]
 }
 
+@test "'decompose skel-put' updates skeleton files" {
+  cd "$WORKING"
+
+  # Load some data into the repository.
+  touch "$WORKING/test_file"
+
+  run decompose skel-put test_file
+
+  echo "$output"
+  [ -f "$WORKING/.decompose/environment/skel/test_file" ]
+}
+
+@test "'decompose skel-put' overrides existing files" {
+  cd "$WORKING"
+
+  # Create some test data
+  echo "Original file" > "$WORKING/test_file"
+  echo "Skeleton files" > "$WORKING/.decompose/environment/skel/test_file"
+
+  decompose skel-put test_file
+
+  local test_file_contents=$(cat "$WORKING/.decompose/environment/skel/test_file")
+
+  [ "$test_file_contents" == "Original file" ]
+}
+
+@test "'decompose skel-put' overrides directories" {
+  cd "$WORKING"
+
+  # Create some test data
+  mkdir -p "$WORKING/testdir"
+  echo "Original file" > "$WORKING/testdir/test_file"
+  mkdir -p "$WORKING/.decompose/environment/skel/testdir"
+  echo "Skeleton files" > "$WORKING/.decompose/environment/skel/testdir/test_file"
+
+  decompose skel-put testdir
+
+  local test_file_contents=$(cat "$WORKING/.decompose/environment/skel/testdir/test_file")
+
+  echo "$test_file_contents"
+  [ "$test_file_contents" == "Original file" ]
+}
+
 function setup() {
   setup_testing_environment
 }
