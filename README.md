@@ -40,6 +40,16 @@ DECOMPOSE_PROCESSES=( "${DECOMPOSE_COMMON_PROCESSES[@]}" )
 - `diff-skeleton` : Shows differences between the project and the decompose environment skeleton located at `.decompose/environment/skel`
 - `print-vars` : Prints all of the `PROJECT_*` variables
 
+### diff-skeleton process
+
+By default the `diff-skeleton` process will diff all files in project root against the evironment skeleton. The process allows for ignore files to which ignore diffs on specified files. The ignore files which `diff-skeleton` looks for are located at:
+
+- .decompose/environment/skel-diff-ignore
+- .decompose/skel-diff-ignore
+- .decompose-skel-diff-ignore
+
+See the `diff` utitlity for details on how the ignore files syntax. Or see this [StackOverflow explination](http://stackoverflow.com/a/3775390).
+
 ### Other functions
 
 These functions can be used inside your custom processes.

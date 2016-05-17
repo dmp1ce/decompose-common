@@ -46,6 +46,10 @@ function setup_testing_environment() {
   # Reference elements and processes files in WORKING directory
   cp "$BATS_TEST_DIRNAME/fixtures/elements" "$tmpdir/build-test/.decompose"
   cp "$BATS_TEST_DIRNAME/fixtures/processes" "$tmpdir/build-test/.decompose"
+
+  # Copy relevant skeleton files
+  cp "$BATS_TEST_DIRNAME/fixtures/skel-diff-ignore" "$tmpdir/build-test/.decompose/environment"
+  cp "$BATS_TEST_DIRNAME/fixtures/skel"/* "$tmpdir/build-test/.decompose/environment/skel"
 }
 
 function teardown_testing_environment() {

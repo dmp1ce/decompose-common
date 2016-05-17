@@ -97,6 +97,103 @@ load "$BATS_TEST_DIRNAME/bats_functions.bash"
   [ "$test_file_contents" == "Original file" ]
 }
 
+
+@test "diff ignore ignores specified skeleton files" {
+  cd "$WORKING"
+
+  # Modify diff ignored file
+  echo "Modified" >> not-important-to-track.txt
+
+  run decompose diff-skeleton
+
+  # Output should not include modified file
+  local lines_found=$(echo "$output" | grep "not-important-to-track.txt" | wc -l)
+  [ "$lines_found" -eq 0 ]
+}
+
+@test "diff ignore ignores specified skeleton files" {
+  cd "$WORKING"
+
+  # Modify diff ignored file
+  echo "Modified" >> not-important-to-track.txt
+
+  run decompose diff-skeleton
+
+  # Output should not include modified file
+  local lines_found=$(echo "$output" | grep "not-important-to-track.txt" | wc -l)
+  [ "$lines_found" -eq 0 ]
+}
+
+@test "diff ignore in .decompose ignores files" {
+  cd "$WORKING"
+
+  # Create new file
+  echo "A new file to ignore in diff" >> a_new_file.txt
+  # Create ignore file
+  echo "a_new_file.txt" >> .decompose/skel-diff-ignore
+
+  run decompose diff-skeleton
+
+  # Output should not include modified file
+  echo "$output"
+  local lines_found=$(echo "$output" | grep "a_new_file.txt" | wc -l)
+  [ "$lines_found" -eq 0 ]
+}
+
+@test "diff ignore in project root" {
+  cd "$WORKING"
+
+  # Create new file
+  echo "A new file to ignore in diff" >> a_new_file2.txt
+  # Create ignore file
+  echo "a_new_file2.txt" >> .decompose-skel-diff-ignore
+
+  run decompose diff-skeleton
+
+  # Output should not include modified file
+  echo "$output"
+  local lines_found=$(echo "$output" | grep "a_new_file2.txt" | wc -l)
+  [ "$lines_found" -eq 0 ]
+}
+
+@test "diff ignore works in for multiple ignore files" {
+  cd "$WORKING"
+
+  # Environment level
+  # Modify diff ignored file
+  echo "Modified" >> not-important-to-track.txt
+
+  # Private project level - .decompose directory
+  # Create new file
+  echo "A new file to ignore in diff" >> a_new_file.txt
+  # Create ignore file
+  echo "a_new_file.txt" >> .decompose/skel-diff-ignore
+
+  # Public project level - project root
+  # Create new file
+  echo "A new file to ignore in diff" >> a_new_file2.txt
+  # Create ignore file
+  echo "a_new_file2.txt" >> .decompose-skel-diff-ignore
+
+  run decompose diff-skeleton
+
+  # Output should not include modified file
+  echo "$output"
+  local lines_found=$(echo "$output" | grep "not-important-to-track.txt" | wc -l)
+  [ "$lines_found" -eq 0 ]
+
+  # Output should not include modified file
+  echo "$output"
+  local lines_found=$(echo "$output" | grep "a_new_file.txt" | wc -l)
+  [ "$lines_found" -eq 0 ]
+
+  # Output should not include modified file
+  echo "$output"
+  local lines_found=$(echo "$output" | grep "a_new_file2.txt" | wc -l)
+  [ "$lines_found" -eq 0 ]
+
+}
+
 function setup() {
   setup_testing_environment
 }

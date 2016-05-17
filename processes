@@ -32,14 +32,26 @@ _decompose-process-diff-skeleton() {
     specified_path=$1
   fi
 
-  # TODO: Somehow ignore generated files before diffing. Maybe clean first?
+  # Build exclude options
+  local exclude_options=""
+  if [ -f "$project_root/.decompose/environment/skel-diff-ignore" ]; then
+    exclude_options+="-X $project_root/.decompose/environment/skel-diff-ignore "
+  fi
+  if [ -f "$project_root/.decompose/skel-diff-ignore" ]; then
+    exclude_options+="-X $project_root/.decompose/skel-diff-ignore "
+  fi
+  if [ -f "$project_root/.decompose-skel-diff-ignore" ]; then
+    exclude_options+="-X $project_root/.decompose-skel-diff-ignore "
+  fi
+
   # Is color diff available?
   local diffcommand="$(which colordiff 2> /dev/null)"
   if [ ! -n "$diffcommand" ]; then
     local diffcommand="$(which diff)"
   fi
 
-	$diffcommand -r "$project_root/$specified_path" "$project_root"/.decompose/environment/skel/$specified_path
+  echo "$exclude_optoins"
+	$diffcommand $exclude_options -r "$project_root/$specified_path" "$project_root"/.decompose/environment/skel/$specified_path
 }
 _decompose-process-diff-skeleton_help() {
   echo "  Show differences between environment and skeleton"
