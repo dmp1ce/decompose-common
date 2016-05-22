@@ -111,6 +111,29 @@ load "$BATS_TEST_DIRNAME/bats_functions.bash"
   [ "$lines_found" -eq 0 ]
 }
 
+@test "diff ignore ignores specified skeleton directories" {
+  # Skip this test if diff does not contain the exclude directory feature
+  if [ -z "$(diff --help | grep '\-\-exclude-directory')" ]; then
+    skip "diff does not include support exclude directory feature"
+  fi
+
+  cd "$WORKING"
+
+  # Create directory structure
+  mkdir not-important-directory
+  echo "Modified" >> not-important-directory/a
+
+  # Ignore directory
+  echo not-important-directory >> .decompose/skel-diff-ignore
+
+  run decompose diff-skeleton
+
+  # Output should not include modified file
+  local lines_found=$(echo "$output" | grep "not-important-directory" | wc -l)
+  echo "$output"
+  [ "$lines_found" -eq 0 ]
+}
+
 @test "diff ignore ignores specified skeleton files" {
   cd "$WORKING"
 

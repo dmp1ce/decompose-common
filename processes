@@ -44,6 +44,11 @@ _decompose-process-diff-skeleton() {
     exclude_options+="-X $project_root/.decompose-skel-diff-ignore "
   fi
 
+  # If --exclude-directory option is available then add that option too.
+  if [ -n "$(diff --help | grep '\-\-exclude-directory')" ]; then
+    exclude_options+="--exclude-directory "
+  fi
+
   # Is color diff available?
   local diffcommand="$(which colordiff 2> /dev/null)"
   if [ ! -n "$diffcommand" ]; then
