@@ -96,7 +96,7 @@ _decompose-process-skel-put() {
   echo "$destination"
   cp -rL "$project_root/$1" "$destination"
 }
-_decompose-process-skel-get_help() {
+_decompose-process-skel-put_help() {
   echo "  Copy project files to skeleton."
   echo "  PARAM 1: Specifies the path to copy project files to skeleton."
 }

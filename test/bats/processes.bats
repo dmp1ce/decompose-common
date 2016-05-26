@@ -214,7 +214,13 @@ load "$BATS_TEST_DIRNAME/bats_functions.bash"
   echo "$output"
   local lines_found=$(echo "$output" | grep "a_new_file2.txt" | wc -l)
   [ "$lines_found" -eq 0 ]
+}
 
+@test "Help functions do not output any errors" {
+  cd "$WORKING"
+  error_output=$(decompose --help 2>&1 >/dev/null)
+  echo "$error_output"
+  [ -z "$error_output" ]
 }
 
 function setup() {
