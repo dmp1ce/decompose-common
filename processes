@@ -75,7 +75,7 @@ _decompose-process-skel-get() {
   fi
 
   echo "$destination"
-  cp -rL "$project_root/.decompose/environment/skel/$1" "$destination"
+  cp -RL "$project_root/.decompose/environment/skel/$1" "$destination"
 }
 _decompose-process-skel-get_help() {
   echo "  Copy skeleton files to project."
@@ -94,7 +94,7 @@ _decompose-process-skel-put() {
   fi
 
   echo "$destination"
-  cp -rL "$project_root/$1" "$destination"
+  cp -RL "$project_root/$1" "$destination"
 }
 _decompose-process-skel-put_help() {
   echo "  Copy project files to skeleton."

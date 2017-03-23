@@ -8,7 +8,8 @@ load "$BATS_TEST_DIRNAME/bats_functions.bash"
   run decompose project-root
 
   echo "$output"
-  [ "${lines[0]}" = "/tmp/"${BATS_TEST_NAME:0:216}"/build-test" ]
+  # Check project root for both Linux and MacOS
+  [[ "${lines[0]}" = "/tmp/"${BATS_TEST_NAME:0:216}"/build-test" || "${lines[0]}" = /private/var/*/${BATS_TEST_NAME:0:216}"/build-test" ]]
 }
 
 @test "'decompose skel-get' updates skeleton files" {

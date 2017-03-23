@@ -15,7 +15,7 @@ function setup_testing_environment() {
   mkdir -p "$tmpdir/build-test-environment"
  
   # Setup build test environment
-  cp -r "$BATS_TEST_DIRNAME/../../." "$tmpdir/build-test-environment"
+  cp -R "$BATS_TEST_DIRNAME/../../." "$tmpdir/build-test-environment"
   mv "$tmpdir/build-test-environment/.git" "$BATS_TMPDIR/$(uuidgen)"
   mkdir -p "$tmpdir/build-test-environment/skel"
   touch "$tmpdir/build-test-environment/skel/.empty"
